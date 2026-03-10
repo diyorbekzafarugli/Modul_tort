@@ -1,0 +1,14 @@
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\bin\Debug\net10.0\Lesson_4_1.exe
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\bin\Debug\net10.0\Lesson_4_1.deps.json
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\bin\Debug\net10.0\Lesson_4_1.runtimeconfig.json
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\bin\Debug\net10.0\Lesson_4_1.dll
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\bin\Debug\net10.0\Lesson_4_1.pdb
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.GeneratedMSBuildEditorConfig.editorconfig
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.AssemblyInfoInputs.cache
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.AssemblyInfo.cs
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.csproj.CoreCompileInputs.cache
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.dll
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\refint\Lesson_4_1.dll
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.pdb
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.genruntimeconfig.cache
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\ref\Lesson_4_1.dll

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Demo.Api.AppHost/Demo.Api.AppHost.csproj" />
+  <Project Path="Demo.Api.Server/Demo.Api.Server.csproj" />
+  <Project Path="frontend/frontend.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
