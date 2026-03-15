@@ -121,3 +121,4 @@ D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Demo.Api\Demo.Api.AppHost\obj\Debug\net8
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Demo.Api\Demo.Api.AppHost\obj\Debug\net8.0\Demo.Api.AppHost.pdb
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Demo.Api\Demo.Api.AppHost\obj\Debug\net8.0\Demo.Api.AppHost.genruntimeconfig.cache
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Demo.Api\Demo.Api.AppHost\obj\Debug\net8.0\ref\Demo.Api.AppHost.dll
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Demo.Api\Demo.Api.AppHost\obj\Debug\net8.0\Demo.Api.AppHost.sourcelink.json

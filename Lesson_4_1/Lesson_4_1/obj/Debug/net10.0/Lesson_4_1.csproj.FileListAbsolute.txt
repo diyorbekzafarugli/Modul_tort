@@ -7,6 +7,7 @@ D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.AssemblyInfoInputs.cache
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.AssemblyInfo.cs
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.csproj.CoreCompileInputs.cache
+D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.sourcelink.json
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.dll
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\refint\Lesson_4_1.dll
 D:\@\Diyorbek\Coding\DotNet\Modul_To'rt\Lesson_4_1\Lesson_4_1\obj\Debug\net10.0\Lesson_4_1.pdb
