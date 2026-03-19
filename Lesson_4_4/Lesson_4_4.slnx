@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Lesson_4_HttpClient.Api/Lesson_4_HttpClient.Api.csproj" />
+    <Project Path="src/Requsts.Api/Requsts.Api.csproj" Id="530c151e-8f96-4ba7-be76-fc9eb05aa14f" />
   </Folder>
 </Solution>

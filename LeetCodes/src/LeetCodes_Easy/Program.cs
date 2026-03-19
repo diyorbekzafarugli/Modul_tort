@@ -1,8 +1,196 @@
-﻿namespace LeetCodes_Easy;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
+namespace LeetCodes_Easy;
 
 
 internal class Program
 {
+    /**Input:     nums = [0,1,2,2,3,0,4,2], val = 2;
+     * Output: 5, nums = [0,1,4,0,3,_,_,_]
+     * Input: haystack = "sadbutsad", needle = "sad"
+     * Output: 0
+     
+     */
+    public int ClimbStairs(int n)
+    {
+        if (n == 0) return 0;
+        return n + ClimbStairs(n - 1);
+    }
+    public int MySqrt(int x)
+    {
+        if (x < 2) return x;
+
+        int left = 1;
+        int rigth = x / 2;
+
+        while(left <= rigth)
+        {
+            long mid = (left + rigth) / 2;
+            if (mid * mid == x) return (int)mid;
+            if (mid * mid < x) left = (int)mid + 1;
+            if (mid * mid > x) rigth = (int)mid - 1;
+        }
+        return rigth;
+    }
+    public string AddBinary(string a, string b)
+    {
+        int i = a.Length - 1;
+        int j = b.Length - 1;
+        int carry = 0;
+        var result = new StringBuilder();
+
+        while (i >= 0 || j >= 0 || carry > 0)
+        {
+            int sum = carry;
+            if (i >= 0) sum += a[i--] - '0';
+            if (j >= 0) sum += b[j--] - '0';
+
+            carry = sum / 2;
+            result.Insert(0, sum % 2);
+        }
+
+        return result.ToString();
+    }
+    public int[] PlusOne(int[] digits)
+    {
+        for (int i = digits.Length - 1; i >= 0; i--)
+        {
+            if (digits[i] != 9)
+            {
+                digits[i]++;
+                return digits;
+            }
+
+            digits[i] = 0;
+        }
+
+        var result = new int[digits.Length + 1];
+        result[0] = 1;
+        return result;
+    }
+
+    public int LengthOfLastWord(string str)
+    {
+        int i = str.Length - 1;
+        int counter = 0;
+
+        while (i >= 0 && str[i] == ' ') --i;
+
+        while (i >= 0 && str[i] != ' ')
+        {
+            ++counter;
+            --i;
+        }
+        return counter;
+    }
+    public int LengthOfLastWord1(string s)
+    {
+        if (s.Length == 0) return 0;
+
+        s = s.Trim();
+        return s.Substring(s.LastIndexOf(" ")).Length;
+    }
+
+    public int SearchInsert(int[] nums, int target)
+    {
+        /*
+         * Input: nums = [1,3,5,6], target = 7
+         * Output: 4
+         */
+        int left = 0, right = nums.Length - 1;
+        int mid = (left + right) / 2;
+
+        while (left <= right)
+        {
+            mid = (left + right) / 2;
+
+            if (nums[mid] == target)
+                return mid;
+
+            if (nums[mid] < target)
+                left = mid + 1;
+
+            if (nums[mid] > target)
+                right = mid - 1;
+        }
+
+        return left;
+    }
+    public int StrStr1(string haystack, string needle)
+    {
+        if (haystack.StartsWith(needle)) return 0;
+
+        for (int i = 0; i < haystack.Length - needle.Length; i++)
+        {
+            int j = 0;
+
+            while (j < needle.Length && haystack[i + j] == needle[j])
+            {
+                j++;
+            }
+
+            if (j == needle.Length)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    public int StrStr(string haystack, string needle)
+    {
+        if (needle.Length == 0) return 0;
+        for (int i = 0; i <= haystack.Length - needle.Length; i++)
+        {
+            if (haystack.Substring(i, needle.Length) == needle)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    public static int RemoveElement(int[] nums, int val)
+    {
+        if (nums.Length == 0) return 0;
+
+        var i = 0;
+        var n = nums.Length;
+
+        while (i < n)
+        {
+            if (nums[i] == val)
+            {
+                nums[i] = nums[n - 1];
+                --n;
+            }
+            else
+            {
+                ++i;
+            }
+        }
+
+        return n;
+    }
+
+
+    public static int RemoveDuplicates(int[] nums)
+    {
+        if (nums.Length == 0) return 0;
+
+        var i = 0;
+        for (int j = 1; j < nums.Length; j++)
+        {
+            if (nums[i] != nums[j])
+            {
+                nums[++i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
     public ListNode MergeTwoLists(ListNode list1, ListNode list2)
     {
         var node = new ListNode();
@@ -156,7 +344,9 @@ internal class Program
     }
     static void Main(string[] args)
     {
-        
+        int[] nums = [1, 1, 2, 2, 2, 3, 3, 4, 4, 5];
+        int k = RemoveDuplicates(nums);
+        Console.WriteLine(k);
         //string[] strs = ["flower", "flow", "flight"];
         //string str = LongestCommonPrefix(strs);
         //Console.WriteLine(str);

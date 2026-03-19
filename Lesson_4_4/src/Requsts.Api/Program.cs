@@ -1,7 +1,5 @@
 
-using Lesson_4_HttpClient.Api.Services;
-
-namespace Lesson_4_HttpClient.Api;
+namespace Requsts.Api;
 
 public class Program
 {
@@ -12,7 +10,7 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
-        builder.Services.AddScoped<IProductService, ProductService>();
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
