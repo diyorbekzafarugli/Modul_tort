@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.Text;
 
 namespace LeetCodes_Easy;
 
@@ -12,13 +9,218 @@ internal class Program
      * Output: 5, nums = [0,1,4,0,3,_,_,_]
      * Input: haystack = "sadbutsad", needle = "sad"
      * Output: 0
-     
+     *Input: numRows = 5
+      Output: [    [1],
+                  [1,1],
+                 [1,2,1],
+                [1,3,3,1],
+               [1,4,6,4,1]
+    ]
      */
+    public bool HasPathSum(TreeNode root, int targetSum)
+    {
+        if (root == null) return false;
+
+        targetSum = targetSum - root.val;
+
+        if (root.left == null && root.right == null && targetSum == 0)
+            return true;
+
+        return HasPathSum(root.left, targetSum) || HasPathSum(root.right, targetSum);
+    }
+    public IList<int> GetRow(int rowIndex)
+    {
+        int[] nums = new int[rowIndex + 1];
+
+        nums[0] = 1;
+
+        for (int i = 1; i <= rowIndex; i++)
+        {
+            long res = (long)nums[i - 1] * (rowIndex - i + 1);
+            nums[i] = (int)(res / i);
+        }
+        return nums;
+    }
+    public int MinDepth(TreeNode root)
+    {
+        if (root == null) return 0;
+
+        if (root.left == null && root.right == null) return 1;
+
+        if (root.left == null)
+            return 1 + MinDepth(root.right);
+
+        if (root.right == null)
+            return 1 + MinDepth(root.left);
+
+        return 1 + Math.Min(MinDepth(root.left), MinDepth(root.right));
+    }
+
+    public IList<IList<int>> Generate(int numRows)
+    {
+        IList<IList<int>> ints = new List<IList<int>>(numRows);
+
+        for (int i = 0; i < numRows; i++)
+        {
+            List<int> row = new() { 1 };
+            if (i >= 1)
+            {
+                for (int j = 0; j < i - 1; j++)
+                {
+                    row.Add(ints[i - 1][j] + ints[i - 1][j + 1]);
+                }
+
+                row.Add(1);
+            }
+            ints.Add(row);
+        }
+        return ints;
+    }
+    public TreeNode SortedArrayToBST(int[] nums)
+    {
+        return BuildNode(nums, 0, nums.Length - 1);
+    }
+    private TreeNode BuildNode(int[] ints, int left, int right)
+    {
+        if (left > right) return null;
+
+        int mid = left + (right - left) / 2;
+
+        TreeNode node = new TreeNode();
+        node.val = ints[mid];
+
+        node.left = BuildNode(ints, left, mid - 1);
+        node.right = BuildNode(ints, mid + 1, right);
+        return node;
+    }
+    public bool IsBalanced(TreeNode root)
+    {
+        return HightTree(root) != -1;
+    }
+    private int HightTree(TreeNode node)
+    {
+        if (node == null) return 0;
+
+        int leftSubTree = HightTree(node.left);
+        if (leftSubTree == -1) return -1;
+
+        int rigthSubTree = HightTree(node.right);
+        if (rigthSubTree == -1) return -1;
+
+        return Math.Abs(leftSubTree - rigthSubTree) > 1 ? -1 : 1 + Math.Max(leftSubTree, rigthSubTree);
+    }
+
+    public int MaxDepth(TreeNode root)
+    {
+        if (root == null) return 0;
+        return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
+    }
+    public bool IsSymmetric(TreeNode root) => IsMirror(root.left, root.right);
+    private bool IsMirror(TreeNode node1, TreeNode node2)
+    {
+        if (node1 == null && node2 == null) return true;
+        if (node1 == null || node2 == null) return false;
+        return node1.val == node2.val
+               && IsMirror(node1.left, node2.right)
+               && IsMirror(node1.right, node2.left);
+    }
+    public bool IsSameTree(TreeNode p, TreeNode q)
+    {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        return p.val == q.val && IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+    }
+    public IList<int> InorderTraversal(TreeNode root)
+    {
+        Stack<TreeNode> nodes = [];
+        IList<int> ints = [];
+        var current = root;
+
+        while (current != null || nodes.Count > 0)
+        {
+            if (current != null)
+            {
+                nodes.Push(current);
+                current = current.left;
+            }
+            else
+            {
+                current = nodes.Pop();
+                ints.Add(current.val);
+                current = current.right;
+            }
+
+        }
+
+        return ints;
+    }
+
+    public void Merge(int[] nums1, int m, int[] nums2, int n)
+    {
+        //Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+        int i = m - 1;
+        int j = n - 1;
+        int k = nums1.Length - 1;
+
+        while (i >= 0 && j >= 0)
+        {
+            if (nums1[i] > nums2[j])
+            {
+                nums1[k] = nums1[i];
+                i--;
+                k--;
+            }
+            else
+            {
+                nums1[k] = nums2[j];
+                j--;
+                k--;
+            }
+        }
+
+        while (j >= 0)
+        {
+            nums1[k] = nums2[j];
+            j--;
+            k--;
+        }
+    }
+    public ListNode DeleteDuplicates(ListNode head)
+    {
+        var current = head;
+        while (current != null && current.next != null)
+        {
+            if (current.value == current.next.value)
+            {
+                current.next = current.next.next;
+            }
+            else
+            {
+                current = current.next;
+            }
+        }
+        return head;
+    }
     public int ClimbStairs(int n)
     {
-        if (n == 0) return 0;
-        return n + ClimbStairs(n - 1);
+        if (n <= 2) return n;
+        int a = 1, b = 2;
+
+        for (int i = 3; i <= n; i++)
+        {
+            var temp = a + b;
+            a = b;
+            b = temp;
+        }
+
+        return b;
     }
+    public int ClimbStairs1(int n)
+    {
+        if (n <= 2) return n;
+        return ClimbStairs(n - 1) + ClimbStairs(n - 2);
+    }
+
     public int MySqrt(int x)
     {
         if (x < 2) return x;
@@ -26,7 +228,7 @@ internal class Program
         int left = 1;
         int rigth = x / 2;
 
-        while(left <= rigth)
+        while (left <= rigth)
         {
             long mid = (left + rigth) / 2;
             if (mid * mid == x) return (int)mid;
