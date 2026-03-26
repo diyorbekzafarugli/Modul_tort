@@ -17,6 +17,356 @@ internal class Program
                [1,4,6,4,1]
     ]
      */
+    //public IList<string> GenerateParenthesis(int n)
+    //{
+    //    IList<string> strings = [];
+
+    //}
+
+    //private IList<string> HelperMethod(string str, int openCount, int closeCount, int n)
+    //{
+
+    //}
+    public string ReversePrefix(string s, int k)
+    {
+        char[] res = [.. s];
+        int left = 0;
+        int right = Math.Min(k - 1, s.Length - 1);
+
+        while (left < right)
+        {
+            var temp = res[left];
+            res[left++] = res[right];
+            res[right--] = temp;
+        }
+        return new string(res);
+    }
+    public string[] FindWords(string[] words)
+    {
+        HashSet<char> chars1 = ['q','w','e','r','t','y','u','i','o','p'];
+        HashSet<char> chars2 = ['a','s','d','f','g','h','j','k','l'];
+        HashSet<char> chars3 = ['z','x','c','v','b','n','m'];
+        List<string> result = [];
+        foreach (var word in words)
+        {
+            if (word.All(ch => chars1.Contains(char.ToLower(ch))))
+                result.Add(word);
+            else if (word.All(ch => chars2.Contains(char.ToLower(ch))))
+                result.Add(word);
+            else if (word.All(ch => chars3.Contains(char.ToLower(ch))))
+                result.Add(word);
+        }
+
+        return result.ToArray();
+    }
+    public IList<string> FizzBuzz(int n)
+    {
+        IList<string> strings = new List<string>(n);
+
+        for (int i = 1; i <= n; i++)
+        {
+            if (i % 15 == 0)
+                strings.Add("FizzBuzz");
+            else if (i % 3 == 0)
+                strings.Add("Fizz");
+            else if (i % 5 == 0)
+                strings.Add("Buzz");
+            else
+                strings.Add($"{i}");
+        }
+
+        return strings;
+    }
+    public int ArrayPairSum(int[] nums)
+    {
+        Array.Sort(nums);
+        var summ = 0;
+
+        for (int i = 0; i < nums.Length; i += 2)
+        {
+            summ += nums[i];
+        }
+        return summ;
+    }
+    public string ReverseWords(string s)
+    {
+        StringBuilder str = new StringBuilder(s.Length);
+        int t = 0;
+
+        for (int i = 0; i <= s.Length; i++)
+        {
+
+            if (i == s.Length || s[i] == ' ')
+            {
+                int right = i - 1;
+                while (right >= t)
+                {
+                    str.Append(s[right--]);
+                }
+
+                if (i != s.Length)
+                    str.Append(' ');
+
+                t = i + 1;
+            }
+        }
+        return str.ToString();
+    }
+    public void ReverseString(char[] s)
+    {
+        int left = 0;
+        int rigth = s.Length - 1;
+
+        while (left < rigth)
+        {
+            var temp = s[left];
+            s[left++] = s[rigth];
+            s[rigth--] = temp;
+        }
+    }
+    public int[] CountBits(int n)
+    {
+        /*
+         * 1 -> 1,
+         * 2 -> 10,
+         * 3 -> 11,
+         * 4 -> 100,
+         * 5 -> 101,
+         * 6 -> 110
+         */
+        int[] nums = new int[n + 1];
+
+        for (int i = 1; i < n + 1; i++)
+        {
+            nums[i] = nums[i >> 1] + (i & 1);
+        }
+
+        return nums;
+    }
+    public int SingleNumber(int[] nums)
+    {
+        //Input: nums = [1,2,1,2,4] Output: 4
+
+        int result = 0;
+        foreach (int num in nums)
+        {
+            result ^= num;
+        }
+
+        return result;
+    }
+    public ListNode ReverseList(ListNode head)
+    {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while (curr != null)
+        {
+            ListNode temp = curr.next;
+            curr.next = prev;
+
+            prev = curr;
+            curr = temp;
+        }
+
+        return prev;
+    }
+    public int[] TwoSum(int[] numbers, int target)
+    {
+        int left = 0, rigth = numbers.Length - 1;
+
+        while (left < rigth)
+        {
+            var summ = numbers[left] + numbers[rigth];
+            if (summ == target)
+                return [left, rigth];
+            else if (summ > target) rigth--;
+            else left++;
+        }
+        return [left, rigth];
+    }
+    public void MoveZeroes(int[] nums)
+    {
+        int L = 0;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] != 0)
+            {
+                (nums[L], nums[i]) = (nums[i], nums[L]);
+                L++;
+            }
+        }
+    }
+    public bool IsPalindrome(string s)
+    {
+        if (s.Length == 1) return true;
+
+        var left = 0;
+        var right = s.Length - 1;
+
+        while (left < right)
+        {
+            if (char.IsLetterOrDigit(s[left]) && char.IsLetterOrDigit(s[right]))
+            {
+                if (char.ToLower(s[left]) != char.ToLower(s[right]))
+                    return false;
+                else
+                {
+                    left++;
+                    right--;
+                }
+            }
+            else if (char.IsLetterOrDigit(s[left]))
+            {
+                right--;
+            }
+            else
+            {
+                left++;
+            }
+        }
+        return true;
+    }
+    public bool IsAnagram(string s, string t)
+    {
+        if (s.Length != t.Length) return false;
+
+        char[] count = new char[26];
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            count[s[i] - 'a']++;
+            count[t[i] - 'a']--;
+        }
+
+        foreach (var val in count)
+        {
+            if (val != 0) return false;
+        }
+
+        return true;
+    }
+    public static IList<IList<string>> GroupAnagrams1(string[] strs)
+    {
+        Dictionary<string, List<string>> pairs = [];
+        foreach (var str in strs)
+        {
+            char[] count = new char[26];
+
+            foreach (var ch in str)
+            {
+                count[ch - 'a']++;
+            }
+
+            string key = new string(count);
+
+            if (!pairs.TryGetValue(key, out var list))
+            {
+                list = [];
+                pairs[key] = list;
+            }
+
+            list.Add(str);
+        }
+
+        return [.. pairs.Values];
+    }
+    public static IList<IList<string>> GroupAnagrams(string[] strs)
+    {
+        //strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+
+        Dictionary<string, List<string>> pairs = [];
+
+        foreach (var item in strs)
+        {
+            var key = string.Concat(item.OrderBy(c => c));
+
+            if (!pairs.TryGetValue(key, out var list))
+            {
+                list = new List<string>();
+                pairs[key] = list;
+            }
+
+            list.Add(item);
+        }
+
+        return [.. pairs.Values];
+    }
+    public static string IntToRoman(int num)
+    {
+        var romanValues = new (int value, string numeral)[]
+        {
+            (1000, "M"),
+            (900, "CM"),
+            (500, "D"),
+            (400, "CD"),
+            (100, "C"),
+            (90, "XC"),
+            (50, "L"),
+            (40, "XL"),
+            (10, "X"),
+            (9, "IX"),
+            (5, "V"),
+            (4, "IV"),
+            (1, "I")
+        };
+
+        StringBuilder builder = new();
+
+        foreach (var item in romanValues)
+        {
+            while (num >= item.value)
+            {
+                builder.Append(item.numeral);
+                num -= item.value;
+            }
+        }
+        return builder.ToString();
+    }
+    public bool FindRotation(int[][] mat, int[][] target)
+    {
+        if (mat.Length != target.Length) return false;
+        var counter = 0;
+        int length = mat.Length;
+
+        while (counter < 4)
+        {
+            var result = AreMatricesEqual(mat, target);
+            if (result) return true;
+
+            if (counter == 3) return false;
+
+            for (int i = 0; i < length; i++)
+            {
+                for (int j = i; j < length; j++)
+                {
+                    var temp = mat[i][j];
+                    mat[i][j] = mat[j][i];
+                    mat[j][i] = temp;
+                }
+                for (int j = 0; j < length / 2; j++)
+                {
+                    var temp = mat[i][j];
+                    mat[i][j] = mat[i][length - 1 - j];
+                    mat[i][length - 1 - j] = temp;
+                }
+            }
+            ++counter;
+        }
+        return false;
+    }
+    private bool AreMatricesEqual(int[][] mat, int[][] target)
+    {
+        for (int i = 0; i < mat.Length; i++)
+        {
+            for (int j = 0; j < mat[i].Length; j++)
+                if (mat[i][j] != target[i][j])
+                    return false;
+
+        }
+        return true;
+    }
     public bool HasPathSum(TreeNode root, int targetSum)
     {
         if (root == null) return false;
@@ -546,9 +896,11 @@ internal class Program
     }
     static void Main(string[] args)
     {
-        int[] nums = [1, 1, 2, 2, 2, 3, 3, 4, 4, 5];
-        int k = RemoveDuplicates(nums);
-        Console.WriteLine(k);
+        var str = IntToRoman(2000);
+        Console.WriteLine(str);
+        //int[] nums = [1, 1, 2, 2, 2, 3, 3, 4, 4, 5];
+        //int k = RemoveDuplicates(nums);
+        //Console.WriteLine(k);
         //string[] strs = ["flower", "flow", "flight"];
         //string str = LongestCommonPrefix(strs);
         //Console.WriteLine(str);
@@ -559,7 +911,7 @@ internal class Program
         //int[] res = TwoSum(nums, 6);
     }
 
-    static int[] TwoSum(int[] nums, int target)
+    static int[] TwoSum2(int[] nums, int target)
     {
         for (int i = 0; i < nums.Length; i++)
         {

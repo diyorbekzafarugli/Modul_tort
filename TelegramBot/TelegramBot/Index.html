@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Bot Arxitekturasi: Noldan Professionalgacha</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --code-bg: #2b2b2b;
+            --code-color: #f8f8f2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-top: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .diagram {
+            width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        code {
+            background-color: #f1f2f6;
+            color: #e74c3c;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1em;
+            font-family: sans-serif;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+            table thead tr {
+                background-color: var(--primary-color);
+                color: #ffffff;
+                text-align: left;
+            }
+
+            table th, table td {
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+            }
+
+            table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+
+        .highlight-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* PDF ga chiqarish uchun maxsus sozlamalar */
+        @media print {
+            body {
+                background-color: #fff;
+            }
+
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            pre, table, img {
+                page-break-inside: avoid;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Telegram Bot Arxitekturasi:<br>Noldan Professionalgacha</h1>
+        <p><strong>Muallif:</strong> Dastur Arxitektori</p>
+        <p><strong>Daraja:</strong> Middle / Senior Muhandislar uchun qo'llanma</p>
+
+        <h2>1. Dastur Fayllari va Ularning Vazifasi (Arxitektura)</h2>
+        <p>Loyiha <strong>Clean Architecture</strong> (Toza arxitektura) tamoyillariga asoslangan bo'lib, vazifalar qat'iy taqsimlangan. U uchta asosiy ustunga tayanadi.</p>
+
+        <img class="diagram" src="https://placehold.co/800x250/2c3e50/ffffff?text=Arxitektura:+Program.cs+%E2%86%92+HostedService+%E2%86%92+BotHandler" alt="Arxitektura sxemasi">
+
+        <h3>A) <code>Program.cs</code> (Dasturning poydevori)</h3>
+        <p>Dastur ishga tushganda <strong>faqat 1 marta</strong> ishlaydi. Uning asosiy vazifasi – <em>Dependency Injection (DI)</em> qutisini kerakli asboblar bilan to'ldirish.</p>
+        <ul>
+            <li><code>AddDbContext</code>: Ma'lumotlar bazasini ulaydi. Birinchi ulanishining sababi — boshqa xizmatlar bunga qaram.</li>
+            <li><code>AddHttpClient</code>: Tashqi API'larga chiqish uchun internet resurslarini tejovchi zavod yaratadi.</li>
+            <li><code>AddScoped&lt;BotHandler&gt;()</code>: Har bir yangi xabar uchun alohida, izolyatsiya qilingan muhit yaratadi.</li>
+            <li><code>AddHostedService&lt;BotHostedService&gt;()</code>: Botni 24/7 orqa fonda ishlashga majbur qiladigan xizmat.</li>
+        </ul>
+
+        <h3>B) <code>BotHostedService.cs</code> (Mator va Qorovul)</h3>
+        <p>Dastur yopilmaguncha uzluksiz ishlaydigan mator (Singleton).</p>
+        <div class="highlight-box">
+            <strong>Arxitekturaviy yechim:</strong> Telegramdan xabar kelganda u o'zi javob bermaydi. U <code>CreateScope()</code> orqali yangi DI "muhit" ochib, yangi <code>BotHandler</code> ga ishni topshiradi. Bu orqali Minglab xabarlar kelganda dastur qotib qolmasligi va Memory Leak (xotira to'lib qolishi) oldi olinadi.
+        </div>
+
+        <h3>C) <code>BotHandler.cs</code> (Miya va Mantiq)</h3>
+        <p>Botga xabar kelganidagina <strong>yashin tezligida ishlab, o'chib ketadigan</strong> qism (Scoped).</p>
+
+        <h2>2. Algoritm — "Finite State Machine" (FSM)</h2>
+        <p>Ro'yxatdan o'tish qismida nima uchun <code>switch (user.State)</code> ishlatdik?</p>
+        <img class="diagram" src="https://placehold.co/800x200/3498db/ffffff?text=FSM:+WaitingForName+%E2%86%92+WaitingForLogin+%E2%86%92+WaitingForPassword" alt="FSM sxemasi">
+
+        <p>Telegram API <strong>"Stateless" (Xotirasiz)</strong> hisoblanadi. Bot foydalanuvchining 5 daqiqa oldin yozgan xabarini o'z-o'zidan eslay olmaydi. Buni hal qilish uchun <strong>Chekli Holatlar Mashinasi (FSM)</strong> qo'llaniladi. Biz foydalanuvchining qaysi bekatda to'xtaganini bazaga yozib qo'yamiz. Tizim o'chib yonsa ham, bot algoritmni kerakli joydan davom ettiradi.</p>
+
+        <h2>3. Paketlar va Ularning Vazifalari (Dependencies)</h2>
+        <p>Loyihada o'rnatilgan paketlar tasodifiy emas, ular .NET ekotizimining eng kuchli asboblaridir:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Paket Nomi</th>
+                    <th>Ishlab chiquvchi</th>
+                    <th>Qanday ishlaydi va Imkoniyatlari</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Microsoft.Extensions.Hosting</strong></td>
+                    <td>Microsoft</td>
+                    <td>DI (Dependency Injection) qutisini va orqa fon vazifalarini yaratadi. Klasslarni bir-biriga bo'sh bog'lash (Loose coupling) imkonini beradi.</td>
+                </tr>
+                <tr>
+                    <td><strong>EF Core.Sqlite & Tools</strong></td>
+                    <td>Microsoft</td>
+                    <td>ORM texnologiyasi. SQL yozish o'rniga, C# metodlari yoziladi va u orqa fonda SQL ga o'giriladi. <em>Tools</em> paketi migratsiya qilish uchun javobgar.</td>
+                </tr>
+                <tr>
+                    <td><strong>Telegram.Bot</strong></td>
+                    <td>Hamjamiyat</td>
+                    <td>Telegramning murakkab HTTP (REST) so'rovlarini tayyor va qulay C# klasslariga (masalan: <code>SendMessageAsync</code>) o'girib beradi.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Katta Platformalarga Integratsiya (Pro Daraja)</h2>
+        <p>Agar bot yirik loyihaning (Ijtimoiy tarmoq, O'quv platformasi) bir qismi bo'lsa, uni quyidagi professional paketlar bilan kengaytirish shart:</p>
+        <ul>
+            <li><strong>Ma'lumotlar Bazasi:</strong> <code>SQLite</code> o'rniga <strong><code>PostgreSQL</code></strong> o'rnatiladi. U millionlab tranzaksiyalarni oson ko'taradi.</li>
+            <li><strong>State Management (Tezkor xotira):</strong> FSM (Holatlar) ni bazada saqlash tizimni sekinlashtiradi. O'rniga <strong><code>Redis</code></strong> ishlatiladi (RAM darajasida ishlaydi).</li>
+            <li><strong>Toza Arxitektura (CQRS):</strong> Katta <code>switch</code> lar o'rniga <strong><code>MediatR</code></strong> paketi qo'yiladi. Har bir komanda alohida faylda ishlaydi.</li>
+            <li><strong>Loglash tizimi:</strong> Console o'rniga <strong><code>Serilog</code></strong> ishlatilib, xatolar fayllarga yoki Seq/Elasticsearch ga yoziladi.</li>
+        </ul>
+
+        <h2>5. Bot Yaratish Turlari (Arxitektura farqi)</h2>
+
+        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+            <div style="flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+                <h3>📡 Long Polling</h3>
+                <p>Bot har soniyada Telegramdan "Xabar bormi?" deb so'raydi. (Bizda hozir shu).</p>
+                <p><strong>Plyus:</strong> Localhost'da test qilish oson.</p>
+                <p><strong>Minus:</strong> Server resurslarini ko'p yeydi.</p>
+            </div>
+            <div style="flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f4fdf8;">
+                <h3>🚀 WebHook (Pro)</h3>
+                <p>Bot jim turadi. Telegram xabar kelganda to'g'ridan-to'g'ri sizning Server API'ngizga jo'natadi.</p>
+                <p><strong>Plyus:</strong> Resurslarni tejaydi, millionlab odamga dosh beradi.</p>
+                <p><strong>Minus:</strong> SSL sertifikatli ochiq domen kerak.</p>
+            </div>
+        </div>
+
+        <h2>6. UI (Interfeys) Evolyutsiyasi</h2>
+        <p>Telegramda bot interfeysini professional qilishning 3 bosqichi mavjud:</p>
+        <ol>
+            <li><strong>Reply Keyboard (Oddiy klaviatura):</strong> Ekran pastidagi tugmalar. Asosan navigatsiya uchun.</li>
+            <li><strong>Inline Keyboard (Shaffof tugmalar):</strong> Xabar ostiga yopishadigan tugmalar. Ular bosilganda xabarning o'zi tahrirlanadi (<code>EditMessageText</code>). Bu chinakam professional yondashuv.</li>
+            <li><strong>Telegram Web Apps (TWA):</strong> Bot ichida ochiladigan haqiqiy HTML/React veb-saytlar (Notcoin, Blum). Bot faqatgina tizimga kirish (eshik) vazifasini o'taydi.</li>
+        </ol>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 2px dashed #ddd;">
+    </div>
+
+</body>
+</html>
