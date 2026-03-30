@@ -196,23 +196,23 @@ internal class Program
         }
         return false;
     }
-    public ListNode DetectCycle(ListNode head)
-    {
-        var fast = head;
-        var slow = head;
+    //public ListNode DetectCycle(ListNode head)
+    //{
+    //    var fast = head;
+    //    var slow = head;
 
-        while (fast != null && fast.next != null)
-        {
-            slow = slow.next;
-            fast = fast.next.next;
+    //    while (fast != null && fast.next != null)
+    //    {
+    //        slow = slow.next;
+    //        fast = fast.next.next;
 
-            if (slow == fast)
-            {
-                slow = head;
+    //        if (slow == fast)
+    //        {
+    //            slow = head;
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
     public ListNode OddEvenList(ListNode head)
     {

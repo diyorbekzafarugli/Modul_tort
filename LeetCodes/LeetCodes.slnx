@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/LeetCode75_StudyPlan/LeetCode75_StudyPlan.csproj" Id="5749843e-fd1d-4569-8bf0-6a913c650724" />
     <Project Path="src/LeetCodes_Easy/LeetCodes_Easy.csproj" Id="b4fdb9ce-c66a-4a6c-b13d-52a6451dd7de" />
     <Project Path="src/LeetCode_Medium/LeetCode_Medium.csproj" Id="256e3ab9-b4cb-45cd-ba00-f32e6e1a063c" />
   </Folder>
