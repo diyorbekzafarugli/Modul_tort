@@ -15,6 +15,7 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddScoped<BotHandler>();
 
         string botToken = Environment.GetEnvironmentVariable("MY_BOT_TOKEN")!;
+
         services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(botToken));
 
         services.AddHostedService<BotHostedService>();
