@@ -9,11 +9,10 @@ public class User
     public string? PasswordHash { get; set; }
     public string? ApiToken { get; set; }
 
-    // YAngi maydonlar:
-    public string Role { get; set; } = "User"; // "User" yoki "Admin"
-    public bool IsBlocked { get; set; } = false; // Bloklanganmi?
-    public string Language { get; set; } = "UZ"; // Sozlamalar uchun
-
+    public string Role { get; set; } = "User"; 
+    public bool IsBlocked { get; set; } = false;
+    public string Language { get; set; } = "UZ";
+    public bool WaitingForCurrencyInput { get; set; } = false;
     public UserState State { get; set; } = UserState.None;
     public DateTime RegisteredAt { get; set; }
 

@@ -27,6 +27,383 @@ internal class Program
     //{
 
     //}
+    public IList<string> StringMatching(string[] words)
+    {
+        List<string> res = new List<string>();
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                if (i == j) continue;
+
+                if (words[j].Contains(words[i]))
+                {
+                    res.Add(words[i]);
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
+    public char RepeatedCharacter(string s)
+    {
+        bool[] letters = new bool[26];
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            int index = s[i] - 'a';
+
+            if (letters[index]) return s[i];
+
+            letters[index] = true;
+        }
+
+        return ' ';
+    }
+    public int FirstUniqChar(string s)
+    {
+        Span<int> indexes = stackalloc int[26];
+
+        ReadOnlySpan<char> letters = s.AsSpan();
+
+        foreach (var letter in letters)
+        {
+            indexes[letter - 'a']++;
+        }
+
+        for (int i = 0; i < letters.Length; i++)
+        {
+            if (indexes[letters[i] - 'a'] == 1) return i;
+        }
+
+        return -1;
+    }
+    public bool IsPowerOfThree(int n)
+    {
+        while (n % 3 == 0)
+        {
+            n /= 3;
+        }
+        return n == 1;
+    }
+
+    public bool CheckEqualPartitions(int[] nums, long target)
+    {
+        return Distribute(nums, 0, target, target);
+    }
+    private bool Distribute(int[] nums, int index, long target1, long target2)
+    {
+        if (index == nums.Length)
+            return target1 == 1 && target2 == 1;
+
+        int num = nums[index];
+
+        if (target1 % num == 0)
+        {
+            if (Distribute(nums, index + 1, target1 / num, target2))
+                return true;
+        }
+
+        if (target2 % num == 0)
+        {
+            if (Distribute(nums, index + 1, target1, target2 / num))
+                return true;
+        }
+
+        return false;
+    }
+
+    public int HammingWeight(int n)
+    {
+        int res = 0;
+        while (n != 0)
+        {
+            n &= (n - 1);
+            res++;
+        }
+        return res;
+    }
+    public int TotalHammingDistance(int[] nums)
+    {
+        int totalDistanse = 0;
+        int n = nums.Length;
+
+        for (int i = 0; i < 32; i++)
+        {
+            int oneBit = 0;
+
+            foreach (var num in nums)
+            {
+                if (((num >> i) & 1) == 1) oneBit++;
+            }
+
+            int zeroBit = n - oneBit;
+
+            totalDistanse += oneBit * zeroBit;
+        }
+
+        return totalDistanse;
+    }
+    public int HammingDistance(int x, int y)
+    {
+        int temp = x ^ y;
+        int count = 0;
+
+        while (temp > 0)
+        {
+            temp &= (temp - 1); // Eng oxirgi 1 ni topib, 0 ga aylantirib yuboradi!
+            count++;            // Har safar 1 ni o'chirganda sanagichni oshiramiz
+        }
+
+        return count;
+    }
+    public int HammingDistance1(int x, int y)
+    {
+        int temp = x ^ y;
+        int count = 0;
+
+        while (temp > 0)
+        {
+            count += (temp & 1);
+            temp >>= 1;
+        }
+
+        return count;
+    }
+    public bool PowerOfTwo(int num)
+    {
+        return num > 0 && (num & (num - 1)) == 0;
+    }
+    public int NumberOfOneBits(int num)
+    {
+        int res = 0;
+        while (num != 0)
+        {
+            num &= (num - 1);
+            res++;
+        }
+        return res;
+    }
+    public class Solution
+    {
+        int counter = 0;
+        string result = "";
+
+        public string GetHappyString(int n, int k)
+        {
+            int allVariants = 3 * (1 << (n - 1));
+            if (k > allVariants) return "";
+
+            Search(n, k, "");
+            return result;
+        }
+
+        private bool Search(int n, int k, string nowString)
+        {
+            if (nowString.Length == n)
+            {
+                counter++;
+
+                if (counter == k)
+                {
+                    result = nowString;
+                    return true;
+                }
+                return false;
+            }
+
+            foreach (char letter in new[] { 'a', 'b', 'c' })
+            {
+                if (nowString.Length > 0 && nowString[nowString.Length - 1] == letter)
+                    continue;
+
+                if (Search(n, k, nowString + letter))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+    public bool IsSubsequence(string s, string t)
+    {
+        int i = 0;
+        int j = 0;
+
+        while (i < s.Length && j < t.Length)
+        {
+            if (s[i] == t[j])
+            {
+                i++;
+            }
+            j++;
+        }
+
+        return i == s.Length;
+    }
+    public bool CanConstruct(string ransomNote, string magazine)
+    {
+        if (ransomNote.Length > magazine.Length) return false;
+
+        int[] letters = new int[26];
+
+        foreach (char c in magazine)
+            letters[c - 'a']++;
+
+        foreach (char c in ransomNote)
+        {
+            letters[c - 'a']--;
+            if (letters[c - 'a'] < 0) return false;
+        }
+
+        return true;
+    }
+    public string ReverseVowels(string s)
+    {
+        char[] chars = [.. s];
+        int left = 0;
+        int right = s.Length - 1;
+
+        HashSet<char> set = ['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'];
+
+        while (left < right)
+        {
+            if (set.Contains(chars[left]) && set.Contains(chars[right]))
+            {
+                (chars[left], chars[right]) = (chars[right], chars[left]);
+                left++;
+                right--;
+            }
+            else if (set.Contains(chars[left]))
+            {
+                right--;
+            }
+            else if (set.Contains(chars[right]))
+            {
+                left++;
+            }
+            else
+            {
+                left++;
+                right--;
+            }
+        }
+
+        return new string(chars);
+    }
+    public bool ValidParentheses(string str)
+    {
+        Stack<char> chars = [];
+
+        for (int i = 0; i < str.Length; i++)
+        {
+            if (str[i] == '(' || str[i] == '{' || str[i] == '[')
+            {
+                chars.Push(str[i]);
+                continue;
+            }
+
+
+        }
+
+        return chars.Count == 0;
+    }
+    public double MaximumAverageSubarray(int[] nums, int k)
+    {
+        int summ = 0;
+
+        for (int i = 0; i < k; i++)
+        {
+            summ += nums[i];
+        }
+
+        int maxSumm = summ;
+
+        for (int i = k; i < nums.Length; i++)
+        {
+            summ = summ + nums[i] - nums[i - k];
+
+            maxSumm = Math.Max(summ, maxSumm);
+        }
+        return (double)maxSumm / 2;
+    }
+    public int BinarySearch(int[] nums, int target)
+    {
+        int left = 0;
+        int right = nums.Length - 1;
+
+        while (left <= right)
+        {
+            int mid = (left + right) >> 1;
+
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] < target) left = mid + 1;
+            else right = mid - 1;
+        }
+        return left;
+    }
+    public int Bitwise(int[] nums)
+    {
+        int res = 0;
+        foreach (int el in nums)
+            res ^= el;
+        return res;
+    }
+    public bool IsIsomorphic(string s, string t)
+    {
+        Dictionary<char, char> keyValues = new();
+        HashSet<char> chars = new();
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            var c1 = s[i];
+            var c2 = t[i];
+
+            if (keyValues.TryGetValue(c1, out char value))
+            {
+                if (value != c2) return false;
+            }
+            else
+            {
+                if (chars.Contains(c2)) return false;
+
+                keyValues.Add(c1, c2);
+                chars.Add(c2);
+            }
+        }
+        return true;
+    }
+    public int MajorityElement(int[] nums)
+    {
+        int candidate = 0;
+        int count = 0;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (count == 0) { candidate = nums[i]; count++; }
+            else if (nums[i] == candidate) count++;
+            else count--;
+        }
+        return candidate;
+    }
+    public IList<int> PostorderTraversal(TreeNode root)
+    {
+        List<int> nums = [];
+        AddToList(root, nums);
+        return nums;
+    }
+    private void AddToList(TreeNode node, List<int> ints)
+    {
+        if (node == null) return;
+
+        AddToList(node.left, ints);
+        AddToList(node.right, ints);
+
+        ints.Add(node.val);
+    }
     public string ReversePrefix(string s, int k)
     {
         char[] res = [.. s];
@@ -43,9 +420,9 @@ internal class Program
     }
     public string[] FindWords(string[] words)
     {
-        HashSet<char> chars1 = ['q','w','e','r','t','y','u','i','o','p'];
-        HashSet<char> chars2 = ['a','s','d','f','g','h','j','k','l'];
-        HashSet<char> chars3 = ['z','x','c','v','b','n','m'];
+        HashSet<char> chars1 = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'];
+        HashSet<char> chars2 = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'];
+        HashSet<char> chars3 = ['z', 'x', 'c', 'v', 'b', 'n', 'm'];
         List<string> result = [];
         foreach (var word in words)
         {
