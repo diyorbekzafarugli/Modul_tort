@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace LeetCode75_StudyPlan;
@@ -10,17 +9,6 @@ internal class Program
     {
         //var res = DecodeString("2[abc]3[cd]ef");
         //Console.WriteLine(res);
-        int[] nums = [1, 4, 6, 5, 7, 3];
-
-        ListNode head = new ListNode(nums[0]);
-        ListNode curr = head;
-
-        for (int i = 1; i < nums.Length; i++)
-        {
-            curr.next = new ListNode(nums[i]);
-            curr = curr.next;
-        }
-        var res = PairSum(head);
     }
     public string MergeAlternately(string word1, string word2)
     {
@@ -796,7 +784,7 @@ internal class Program
         ListNode fast = head;
         ListNode slow = head;
 
-        while(fast != null)
+        while (fast != null)
         {
             fast = fast.next.next;
             slow = slow.next;
@@ -805,7 +793,7 @@ internal class Program
         slow = ReverseList(slow);
         fast = head;
         var res = 0;
-        while(slow != null)
+        while (slow != null)
         {
             res = Math.Max(res, (slow.val + fast.val));
             slow = slow.next;
@@ -820,5 +808,66 @@ internal class Program
         var right = MaxDepth(root.right);
 
         return 1 + Math.Max(left, right);
+    }
+    public int MinOperations(int[] nums, int k)
+    {
+        //[3,9,7], k = 5
+        int summ = 0;
+
+        foreach (var num in nums)
+        {
+            summ += num;
+        }
+        return summ % k == 0 ? 0 : summ % k;
+    }
+    public bool LeafSimilar(TreeNode root1, TreeNode root2)
+    {
+        StringBuilder node1 = new StringBuilder();
+        StringBuilder node2 = new StringBuilder();
+
+        Helper(root1, node1);
+        Helper(root2, node2);
+        return node1.ToString() == node2.ToString();
+    }
+
+    private void Helper(TreeNode root, StringBuilder builder)
+    {
+        if (root == null) return;
+        if (root.left == null && root.right == null) builder.Append($"{root.val}-");
+
+        Helper(root.left, builder);
+        Helper(root.right, builder);
+    }
+    private int count = 0;
+    public int GoodNodes(TreeNode root)
+    {
+        if (root == null) return count;
+        HelperDfs(root, root.val);
+        return count;
+    }
+
+    private void HelperDfs(TreeNode root, int maxValue)
+    {
+        if (root == null) return;
+        if (root.val > maxValue) count++;
+        HelperDfs(root.left, Math.Max(maxValue, root.val));
+        HelperDfs(root.right, Math.Max(maxValue, root.val));
+    }
+
+    public int PathSum(TreeNode root, int targetSum)
+    {
+        if (root == null) return 0;
+        return PathSumHelper(root, (long)targetSum) + 
+            PathSum(root.left, targetSum) + PathSum(root.right, targetSum);
+    }
+
+    private int PathSumHelper(TreeNode root, long targetSum)
+    {
+        if (root == null) return 0;
+        var count = 0;
+        if ((long)root.val == targetSum) return count += 1;
+        count += PathSumHelper(root.left, targetSum - root.val);
+        count += PathSumHelper(root.right, targetSum - root.val);
+        return count;
     }
 }

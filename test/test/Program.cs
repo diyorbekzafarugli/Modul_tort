@@ -5,7 +5,10 @@ internal class Program
     static void Main(string[] args)
     {
         //Console.WriteLine(MaxSumAfterPartitioning([1, 15, 7, 9, 2, 5, 10],3));
-        var res = NumberOfSubstrings1("abcabc");
+        //var res = NumberOfSubstrings1("abcabc");
+        //Console.WriteLine(res);
+        string str = "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        var res = NumberOfSubstrings(str);
         Console.WriteLine(res);
     }
     public static int MaxSumAfterPartitioning(int[] arr, int k)
@@ -29,7 +32,7 @@ internal class Program
 
                 temp = (max * j) + prev;
 
-                memory[i] = Math.Max(memory[i],temp);
+                memory[i] = Math.Max(memory[i], temp);
             }
         }
         return memory[n - 1];
@@ -38,7 +41,8 @@ internal class Program
 
     public int NumberOfSubstrings1(string s)
     {
-        int indexA = -1, indexB = -1, indexC = -1;
+        // str = "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        int indexA = 0, indexB = 0, indexC = 0;
 
         int sum = 0;
         for (int i = 0; i < s.Length; i++)
@@ -49,7 +53,7 @@ internal class Program
 
             int lastIndex = Math.Min(indexA, Math.Min(indexB, indexC));
 
-            if (lastIndex != -1)
+            if (lastIndex != 0)
             {
                 sum += (lastIndex + 1);
             }
@@ -57,31 +61,31 @@ internal class Program
 
         return sum;
     }
-    public int NumberOfSubstrings(string s)
+    public static int NumberOfSubstrings(string s)
     {
-        var abc = "abc";
-        var slow = 0;
-        var fast = 3;
-        var res = 0;
+        // str = "abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        int res = 0;
+        int n = s.Length;
+        int left = 0;
+        int[] abc = new int[3];
 
-        while(slow < s.Length && fast < s.Length - 3)
+        for (int i = 0; i < n; i++) 
         {
-            var str = s.Substring(slow, fast).Split("");
-            Array.Sort(str);
-            var temp = str.ToString();
+            abc[s[i] - 'a']++;//har charni olib sanadim
 
-            if (str.StartsWith(abc)) res++;
-
-            if (fast == s.Length - 3)
+            while (abc[0] > 0 && abc[1] > 0 && abc[2] > 0)
             {
-                slow++;
-                fast = 3;
+                abc[s[left] - 'a']--;//shu yerda left qaysi index da tursa o'shani o'sha char miqdori kamaytirdim
+                left++;    //chap pointerni bitta surib keyingi index dagi charga o'tdim
             }
-            else fast++;
-        }
+
+            res += left;// leftda gi pointer qaysi indexga kelgan bo'lsa o'shancha bor 
+        }               //abcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa shuni oladigan bo'lsak boshidan sanasak ham
+                         // left kelib qolgan joydan bita qo'shi sanasak ham bitta dan chiqadi ikkalasi
+                         // leftni miqdori
         return res;
     }
-    public int NumberOfSubstrings(string s)
+    public int NumberOfSubstrings2(string s)
     {
         var strs = new List<string>();
 
@@ -108,4 +112,47 @@ internal class Program
 
         return res;
     }
+
+    public static int NumberOfSubstrings12(string s)
+    {
+        /*
+         * abcddddddddddddddddddddddddddddddddddd
+         * dddddddddddddddddddddddddddddddddddddddddddd
+         * ddddddddddddddddddddddddddddddddddddddddddddd
+         */
+        var res = 0;
+        for (var i = 0; i < s.Length - 3; i++)
+        {
+            for (var j = i + 2; j <= s.Length; j++)
+            {
+                // i bilan j oralig'idagi charlarni ko'ramiz. Copy qilmasdan.
+                var hasA = false;
+                var hasB = false;
+                var hasC = false;
+                // Endi aynan shu oraliqda stringni charlarini ko'rib chiqamiz.
+
+                for (var k = i; k <= j; k++)
+                {
+                    if (s[k] == 'a') // Agar char 'a' bo'lsa 
+                        hasA = true;  // 'a' topildi deymiz
+                    else if (s[k] == 'b') // agar char 'b' bo'lsa
+                        hasB = true; // 'b' topildi deymiz
+                    else if (s[k] == 'c') // agar char 'c' bo'lsa
+                        hasC = true; // 'c' topildi deymiz
+
+                    if (hasA && hasB && hasC)
+                    {
+                        // Demak biz substringni mosligiga ishonch hosil qildik.
+                        res++; // Counterni oshiramiz.
+                               // .. va bironta copy qilmasdan davom etamiz
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        return res;
+    }
+
 }

@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OnlineWebManagement.Api/OnlineWebManagement.Api.csproj" />
+    <Project Path="src/OnlineWebManagement.Broker/OnlineWebManagement.Broker.csproj" />
+    <Project Path="src/OnlineWebManagement.Services/OnlineWebManagement.Services.csproj" />
+  </Folder>
+</Solution>
